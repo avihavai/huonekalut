@@ -14,10 +14,15 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
+        if (System.getenv("PORT") != null) {
+            Spark.port(Integer.valueOf(System.getenv("PORT")));
+        }
+        
         System.out.println("Hello world!");
 
         Spark.get("*", (req, res) -> {
- 
+
             List<String> huonekalut = new ArrayList<>();
 
             // avaa yhteys tietokantaan
@@ -47,18 +52,18 @@ public class Main {
             System.out.println("Hei maailma!");
             System.out.println("Saatiin: "
                     + req.queryParams("huonekalu"));
-            
+
             // avaa yhteys tietokantaan
             Connection conn
                     = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
-            
+
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("huonekalu"));
-            
+
             stmt.executeUpdate();
-            
+
             // sulje yhteys tietokantaan
             conn.close();
 
