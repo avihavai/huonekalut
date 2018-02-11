@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Huonekalut</title>
+    </head>
+    
+    <body>
+        <h1>Huonekalut</h1>
+        
+        <p>
+            Huonekalut nuo hienoja ovat, voi veljet, onpa ne somat.
+        </p>
+        
+        <p th:text="${lista}">
+            :D
+        </p>
+        
+        <ul>
+            <li th:each="arvo : ${lista}">
+                <span th:text="${arvo}">
+                    :DD
+                </span>
+            </li>
+        </ul>
+        
+        <form action="/" method="POST">
+            <input type="text" name="huonekalu"/>
+            <input type="submit"/>
+        </form>
+        
+    </body>
+    
+</html>
