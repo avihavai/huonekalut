@@ -26,8 +26,8 @@ public class Main {
             List<String> huonekalut = new ArrayList<>();
 
             // avaa yhteys tietokantaan
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+            Connection conn = getConnection();
+            
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("SELECT nimi FROM Huonekalu");
@@ -54,9 +54,8 @@ public class Main {
                     + req.queryParams("huonekalu"));
 
             // avaa yhteys tietokantaan
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
-
+            Connection conn = getConnection();
+            
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES (?)");
